@@ -1,0 +1,35 @@
+namespace: org.remiheens
+name: example
+version: 0.1.0
+licence: WTFPL
+components:
+
+  - namespace: org.remiheens
+    name: example
+    version: 0.1.0
+    licence: WTFPL 
+    supplier: 
+      - name: xxxxx
+        urls: 
+          - xxxx
+    packageUrl: xxxxxxx
+    
+  - namespace: org.remiheens
+    name: example2
+    version: 1.1.0
+    licence: WTFPL 
+    supplier: 
+      - name: xxxxx
+        urls: 
+          - xxxx
+    packageUrl: xxxxxxx
+
+  - namespace: org.remiheens
+    name: example3
+    version: 0.2.0
+    licence: WTFPL 
+    supplier: 
+      - name: xxxxx
+        urls: 
+          - xxxx
+    packageUrl: xxxxxxx
