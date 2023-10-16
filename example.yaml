@@ -2,34 +2,32 @@ namespace: org.remiheens
 name: example
 version: 0.1.0
 licence: WTFPL
+type: application
 components:
-
   - namespace: org.remiheens
-    name: example
+    name: example-cmp1
     version: 0.1.0
-    licence: WTFPL 
-    supplier: 
-      - name: xxxxx
-        urls: 
-          - xxxx
-    packageUrl: xxxxxxx
-    
+    licence: WTFPL
+    supplier:
+      name: xxxxx
+      urls:
+        - xxxx
+    type: library
   - namespace: org.remiheens
-    name: example2
-    version: 1.1.0
-    licence: WTFPL 
-    supplier: 
-      - name: xxxxx
-        urls: 
-          - xxxx
-    packageUrl: xxxxxxx
-
+    name: example-cmp2
+    version: 1.3333.22222
+    licence: WTFPL
+    supplier:
+      name: xxxxx
+      urls:
+        - xxxx
+    type: container
   - namespace: org.remiheens
-    name: example3
+    name: example-cmp3
     version: 0.2.0
-    licence: WTFPL 
-    supplier: 
-      - name: xxxxx
-        urls: 
-          - xxxx
-    packageUrl: xxxxxxx
+    licence: WTFPL
+    supplier:
+      name: xxxxx
+      urls:
+        - xxxx
+    type: library
