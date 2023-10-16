@@ -1,20 +1,17 @@
 import argparse
-import parser
+from YamlConverter import YamlConverter 
 
 def main():
-    # Créer un objet ArgumentParser
+
     prsr = argparse.ArgumentParser(description="Converter from yaml file to CycloneDx file")
-
-    # Définir une option
     prsr.add_argument("-f", "--file", type=str, help="Path to YAML File to convert into CycloneDX format")
+    prsr.add_argument("-o", "--output", type=str, help="Path to outputfile")
 
-    # Analyser les arguments de la ligne de commande
     args = prsr.parse_args()
-
-    # Utiliser les valeurs des arguments et des options    
     print(f"{args.file}")
 
-    parser.parse(path=args.file)
+    yamlConverter = YamlConverter()
+    yamlConverter.convert(path=args.file, output=args.output)
     
 if __name__ == "__main__":
     main()

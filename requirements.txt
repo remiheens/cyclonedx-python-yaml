@@ -2,3 +2,4 @@ python-dotenv
 pylint
 flake8
 pyyaml
+cyclonedx-python-lib
