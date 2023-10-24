@@ -1,4 +1,3 @@
-import yaml
 from typing import Iterable
 from cyclonedx.factory.license import LicenseChoiceFactory, LicenseFactory
 from cyclonedx.model import OrganizationalEntity, XsUri
@@ -6,36 +5,29 @@ from cyclonedx.model.bom import Bom
 from cyclonedx.model.component import Component, ComponentType
 from cyclonedx.output.xml import XmlV1Dot4
 
-class YamlConverter:
+class BomBuilder:
 
-    def __init__(self, *, version: int = 1) -> None:
+    def __init__(self, *, version: int = 1, yaml: dict) -> None:
         self.lc_factory = LicenseChoiceFactory(license_factory=LicenseFactory())
         self.bom_version = version
+        self._yaml = yaml
 
-    def parse(self, path) -> dict:
-        with open(path, 'r') as file:
-            data = yaml.safe_load(file)
-        return data
-
-    def convert(self, path, output):
-        json = self.parse(path)
-        print(f"{json}")
+    def build_from_yaml(self):
         self._bom = Bom(version=self.bom_version)
-        self._bom.metadata.component = rootComponent = self.generate_component(json)
+        self._bom.metadata.component = rootComponent = self.generate_component(self._yaml)
         
-        for component in json['components']:
+        for component in self._yaml['components']:
             self.parse_components(self._bom, component)
             self._bom.register_dependency(rootComponent, self._bom.components)
 
+        return self._bom
+    
+    def save_to_file(self, output):
         XmlV1Dot4(self._bom).output_to_file(output)
+    
+    def print_as_string(self):
         print(f"{XmlV1Dot4(self._bom).output_as_string()}")
     
-    def extraction_depends(self, obj):
-        results = []
-        for component in obj.components:
-            results.append(dict({"bom_ref": component.bom_ref, "depends_on": self.extraction_depends(component)}))
-        return results
-
     def parse_components(self, root, obj):
         cmp = self.generate_component(obj)
     
@@ -45,7 +37,7 @@ class YamlConverter:
         root.components.add(cmp)
         return root
 
-    def _getComponentTypeByString(self, type) -> ComponentType:
+    def generate_type(self, type) -> ComponentType:
         if type == "application":
             return ComponentType.APPLICATION
         if type == "framework":
@@ -66,7 +58,7 @@ class YamlConverter:
     def generate_component(self, obj) -> Component:
         component = Component(
             name=obj['name'],
-            type=self._getComponentTypeByString(obj['type']),
+            type=self.generate_type(obj['type']),
             bom_ref=(str(obj['name']+'@'+obj['version']) if 'version' in obj else None),
             namespace=(str(obj['namespace']) if 'namespace' in obj else None)
         )
