@@ -1,1 +1,181 @@
-<?xml version="1.0" encoding="UTF-8"?><ns0:bom xmlns:ns0="http://cyclonedx.org/schema/bom/1.4" serialNumber="urn:uuid:b9e9c010-c782-48a1-a32d-26dce68cf710" version="1"><ns0:metadata><ns0:timestamp>2023-10-16T19:33:29.421161+00:00</ns0:timestamp><ns0:tools><ns0:tool><ns0:vendor>CycloneDX</ns0:vendor><ns0:name>cyclonedx-python-lib</ns0:name><ns0:version>4.2.3</ns0:version><ns0:externalReferences><ns0:reference type="build-system"><ns0:url>https://github.com/CycloneDX/cyclonedx-python-lib/actions</ns0:url></ns0:reference><ns0:reference type="distribution"><ns0:url>https://pypi.org/project/cyclonedx-python-lib/</ns0:url></ns0:reference><ns0:reference type="documentation"><ns0:url>https://cyclonedx.github.io/cyclonedx-python-lib/</ns0:url></ns0:reference><ns0:reference type="issue-tracker"><ns0:url>https://github.com/CycloneDX/cyclonedx-python-lib/issues</ns0:url></ns0:reference><ns0:reference type="license"><ns0:url>https://github.com/CycloneDX/cyclonedx-python-lib/blob/main/LICENSE</ns0:url></ns0:reference><ns0:reference type="release-notes"><ns0:url>https://github.com/CycloneDX/cyclonedx-python-lib/blob/main/CHANGELOG.md</ns0:url></ns0:reference><ns0:reference type="vcs"><ns0:url>https://github.com/CycloneDX/cyclonedx-python-lib</ns0:url></ns0:reference><ns0:reference type="website"><ns0:url>https://cyclonedx.org</ns0:url></ns0:reference></ns0:externalReferences></ns0:tool></ns0:tools><ns0:component type="application" bom-ref="example@0.1.0"><ns0:group>org.remiheens</ns0:group><ns0:name>example</ns0:name><ns0:version>0.1.0</ns0:version><ns0:licenses><ns0:license><ns0:id>WTFPL</ns0:id></ns0:license></ns0:licenses></ns0:component></ns0:metadata><ns0:components><ns0:component type="container" bom-ref="example-cmp2@1.1.0"><ns0:supplier><ns0:name>xxxxx</ns0:name><ns0:url>xxxx</ns0:url></ns0:supplier><ns0:group>org.remiheens</ns0:group><ns0:name>example-cmp2</ns0:name><ns0:version>1.1.0</ns0:version><ns0:licenses><ns0:license><ns0:id>WTFPL</ns0:id></ns0:license></ns0:licenses><ns0:purl>pkg:container/org.remiheens/example-cmp2@1.1.0</ns0:purl></ns0:component><ns0:component type="library" bom-ref="example-cmp1@0.1.0"><ns0:supplier><ns0:name>xxxxx</ns0:name><ns0:url>xxxx</ns0:url></ns0:supplier><ns0:group>org.remiheens</ns0:group><ns0:name>example-cmp1</ns0:name><ns0:version>0.1.0</ns0:version><ns0:licenses><ns0:license><ns0:id>WTFPL</ns0:id></ns0:license></ns0:licenses><ns0:purl>pkg:library/org.remiheens/example-cmp1@0.1.0</ns0:purl></ns0:component><ns0:component type="library" bom-ref="example-cmp3@0.2.0"><ns0:supplier><ns0:name>xxxxx</ns0:name><ns0:url>xxxx</ns0:url></ns0:supplier><ns0:group>org.remiheens</ns0:group><ns0:name>example-cmp3</ns0:name><ns0:version>0.2.0</ns0:version><ns0:licenses><ns0:license><ns0:id>WTFPL</ns0:id></ns0:license></ns0:licenses><ns0:purl>pkg:library/org.remiheens/example-cmp3@0.2.0</ns0:purl></ns0:component></ns0:components><ns0:dependencies><ns0:dependency ref="example-cmp1@0.1.0" /><ns0:dependency ref="example-cmp2@1.1.0" /><ns0:dependency ref="example-cmp3@0.2.0" /><ns0:dependency ref="example@0.1.0"><ns0:dependency ref="example-cmp1@0.1.0" /><ns0:dependency ref="example-cmp2@1.1.0" /><ns0:dependency ref="example-cmp3@0.2.0" /></ns0:dependency></ns0:dependencies></ns0:bom>
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns:ns0="http://cyclonedx.org/schema/bom/1.4" serialNumber="urn:uuid:0355f8f2-1d88-4c0c-a9bf-82086040804e" version="1">
+	<metadata>
+		<timestamp>
+			2023-10-24T22:33:30.474325+00:00
+		</timestamp>
+		<tools>
+			<tool>
+				<vendor>
+					CycloneDX
+				</vendor>
+				<name>
+					cyclonedx-python-lib
+				</name>
+				<version>
+					4.2.3
+				</version>
+				<externalReferences>
+					<reference type="build-system">
+						<url>
+							https://github.com/CycloneDX/cyclonedx-python-lib/actions
+						</url>
+					</reference>
+					<reference type="distribution">
+						<url>
+							https://pypi.org/project/cyclonedx-python-lib/
+						</url>
+					</reference>
+					<reference type="documentation">
+						<url>
+							https://cyclonedx.github.io/cyclonedx-python-lib/
+						</url>
+					</reference>
+					<reference type="issue-tracker">
+						<url>
+							https://github.com/CycloneDX/cyclonedx-python-lib/issues
+						</url>
+					</reference>
+					<reference type="license">
+						<url>
+							https://github.com/CycloneDX/cyclonedx-python-lib/blob/main/LICENSE
+						</url>
+					</reference>
+					<reference type="release-notes">
+						<url>
+							https://github.com/CycloneDX/cyclonedx-python-lib/blob/main/CHANGELOG.md
+						</url>
+					</reference>
+					<reference type="vcs">
+						<url>
+							https://github.com/CycloneDX/cyclonedx-python-lib
+						</url>
+					</reference>
+					<reference type="website">
+						<url>
+							https://cyclonedx.org
+						</url>
+					</reference>
+				</externalReferences>
+			</tool>
+		</tools>
+		<component type="application" bom-ref="example@0.1.0">
+			<author>
+				Rémi HEENS &lt;foo@bar.com&gt;
+			</author>
+			<group>
+				org.remiheens
+			</group>
+			<name>
+				example
+			</name>
+			<version>
+				0.1.0
+			</version>
+			<description>
+				This description is a multi-line text.
+				So this sentence should be display into description field.
+			</description>
+			<licenses>
+				<license>
+					<id>
+						WTFPL
+					</id>
+				</license>
+			</licenses>
+		</component>
+	</metadata>
+	<components>
+		<component type="library" bom-ref="example-cmp1@0.1.0">
+			<supplier>
+				<name>
+					xxxxx
+				</name>
+				<url>
+					xxxx
+				</url>
+			</supplier>
+			<group>
+				org.remiheens
+			</group>
+			<name>
+				example-cmp1
+			</name>
+			<version>
+				0.1.0
+			</version>
+			<licenses>
+				<license>
+					<id>
+						WTFPL
+					</id>
+				</license>
+			</licenses>
+			<components>
+				<component type="container" bom-ref="example-cmp2@1.3333.22222">
+					<supplier>
+						<name>
+							xxxxx
+						</name>
+						<url>
+							xxxx
+						</url>
+					</supplier>
+					<group>
+						org.remiheens
+					</group>
+					<name>
+						example-cmp2
+					</name>
+					<version>
+						1.3333.22222
+					</version>
+					<licenses>
+						<license>
+							<id>
+								WTFPL
+							</id>
+						</license>
+					</licenses>
+				</component>
+				<component type="library" bom-ref="example-cmp3@0.2.0">
+					<supplier>
+						<name>
+							xxxxx
+						</name>
+						<url>
+							xxxx
+						</url>
+					</supplier>
+					<group>
+						org.remiheens
+					</group>
+					<name>
+						example-cmp3
+					</name>
+					<version>
+						0.2.0
+					</version>
+					<licenses>
+						<license>
+							<id>
+								WTFPL
+							</id>
+						</license>
+					</licenses>
+				</component>
+			</components>
+		</component>
+	</components>
+	<dependencies>
+		<dependency ref="example-cmp1@0.1.0">
+			<dependency ref="example-cmp2@1.3333.22222" />
+			<dependency ref="example-cmp3@0.2.0" />
+		</dependency>
+		<dependency ref="example-cmp2@1.3333.22222" />
+		<dependency ref="example-cmp3@0.2.0" />
+		<dependency ref="example@0.1.0">
+			<dependency ref="example-cmp1@0.1.0" />
+		</dependency>
+	</dependencies>
+</bom>

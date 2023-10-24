@@ -1,16 +1,16 @@
 import yaml
+from typing import Iterable
 from cyclonedx.factory.license import LicenseChoiceFactory, LicenseFactory
 from cyclonedx.model import OrganizationalEntity, XsUri
 from cyclonedx.model.bom import Bom
 from cyclonedx.model.component import Component, ComponentType
-from cyclonedx.output.json import JsonV1Dot4
 from cyclonedx.output.xml import XmlV1Dot4
-from packageurl import PackageURL
 
 class YamlConverter:
 
-    def __init__(self) -> None:
+    def __init__(self, *, version: int = 1) -> None:
         self.lc_factory = LicenseChoiceFactory(license_factory=LicenseFactory())
+        self.bom_version = version
 
     def parse(self, path) -> dict:
         with open(path, 'r') as file:
@@ -20,40 +20,31 @@ class YamlConverter:
     def convert(self, path, output):
         json = self.parse(path)
         print(f"{json}")
-        bom = Bom()
-        bom.metadata.component = rootComponent = Component(
-            name=json['name'],
-            type=self._getComponentTypeByString(json['type']),
-            licenses=[self.lc_factory.make_from_string(json['licence'])],
-            bom_ref=json['name']+'@'+json['version'],
-            group=json['namespace'],
-            version=json['version']
-        )
-
+        self._bom = Bom(version=self.bom_version)
+        self._bom.metadata.component = rootComponent = self.generate_component(json)
+        
         for component in json['components']:
-            supplier_urls = []
-            for supplier_url in component['supplier']['urls']:
-                supplier_urls.append(XsUri(supplier_url))
+            self.parse_components(self._bom, component)
+            self._bom.register_dependency(rootComponent, self._bom.components)
 
-            component_tmp = Component(
-                type=self._getComponentTypeByString(component['type']),
-                name=component['name'],
-                group=component['namespace'],
-                version=component['version'],
-                licenses=[self.lc_factory.make_from_string(component['licence'])],
-                supplier=OrganizationalEntity(
-                    name=component['supplier']['name'],
-                    urls=supplier_urls
-                ),
-                bom_ref=component['name']+'@'+component['version'],
-                purl=PackageURL(component['type'], component['namespace'], component['name'], component['version'])
-            )
-            bom.components.add(component_tmp)
-            bom.register_dependency(rootComponent, [component_tmp])
-
-        XmlV1Dot4(bom).output_to_file(output)
-        print(f"{XmlV1Dot4(bom).output_as_string()}")
+        XmlV1Dot4(self._bom).output_to_file(output)
+        print(f"{XmlV1Dot4(self._bom).output_as_string()}")
     
+    def extraction_depends(self, obj):
+        results = []
+        for component in obj.components:
+            results.append(dict({"bom_ref": component.bom_ref, "depends_on": self.extraction_depends(component)}))
+        return results
+
+    def parse_components(self, root, obj):
+        cmp = self.generate_component(obj)
+    
+        for component in obj['components'] if ('components' in obj) else []:
+            self.parse_components(cmp, component)
+            self._bom.register_dependency(cmp, cmp.components)
+        root.components.add(cmp)
+        return root
+
     def _getComponentTypeByString(self, type) -> ComponentType:
         if type == "application":
             return ComponentType.APPLICATION
@@ -72,3 +63,47 @@ class YamlConverter:
         if type == "file":
             return ComponentType.FILE
         
+    def generate_component(self, obj) -> Component:
+        component = Component(
+            name=obj['name'],
+            type=self._getComponentTypeByString(obj['type']),
+            bom_ref=(str(obj['name']+'@'+obj['version']) if 'version' in obj else None),
+            namespace=(str(obj['namespace']) if 'namespace' in obj else None)
+        )
+        
+        if ('description' in obj):
+            component.description = obj['description']
+        if ('version' in obj):
+            component.version = obj['version']
+        if ('copyright' in obj):
+            component.copyright = obj['copyright']
+        if ('publisher' in obj):
+            component.publisher = obj['publisher']
+        if ('group' in obj):
+            component.group = obj['group']
+        if ('author' in obj):
+            component.author = obj['author']
+        if ('license' in obj):
+            component.licenses = self.generate_licenses(obj['license'])
+        if ('supplier' in obj):
+            component.supplier = self.generate_supplier(obj['supplier'])
+
+        return component
+    
+    def generate_licenses(self, license) -> Iterable[LicenseFactory]:
+        return [self.lc_factory.make_from_string(license)]
+
+    def generate_supplier(self, obj) -> OrganizationalEntity:
+        
+        if ('name' in obj):
+            supplier = OrganizationalEntity(name=obj['name'])
+
+        supplier_urls = []
+        for supplier_url in obj['urls'] if ('urls' in obj) else []:
+            supplier_urls.append(XsUri(supplier_url))
+        if isinstance(supplier, OrganizationalEntity):
+            supplier.urls = supplier_urls 
+        else:
+            supplier = OrganizationalEntity(urls=supplier_urls)
+
+        return supplier

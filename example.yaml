@@ -1,33 +1,38 @@
 namespace: org.remiheens
 name: example
+description: |
+  This description is a multi-line text.
+  So this sentence should be display into description field.
 version: 0.1.0
-licence: WTFPL
+license: WTFPL
 type: application
+author: Rémi HEENS <foo@bar.com>
 components:
   - namespace: org.remiheens
     name: example-cmp1
     version: 0.1.0
-    licence: WTFPL
+    license: WTFPL
     supplier:
       name: xxxxx
       urls:
         - xxxx
     type: library
-  - namespace: org.remiheens
-    name: example-cmp2
-    version: 1.3333.22222
-    licence: WTFPL
-    supplier:
-      name: xxxxx
-      urls:
-        - xxxx
-    type: container
-  - namespace: org.remiheens
-    name: example-cmp3
-    version: 0.2.0
-    licence: WTFPL
-    supplier:
-      name: xxxxx
-      urls:
-        - xxxx
-    type: library
+    components:
+      - namespace: org.remiheens
+        name: example-cmp2
+        version: 1.3333.22222
+        license: WTFPL
+        supplier:
+          name: xxxxx
+          urls:
+            - xxxx
+        type: container
+      - namespace: org.remiheens
+        name: example-cmp3
+        version: 0.2.0
+        license: WTFPL
+        supplier:
+          name: xxxxx
+          urls:
+            - xxxx
+        type: library
