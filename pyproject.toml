@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[metadata]
+name = "cyclonedx-python-yaml"
+version = "0.1.0"
+keywords = ["cyclonedx", "sbom","yaml"]
+authors = [
+ {name = "Rémi HEENS", email = "github@remiheens.fr"},
+]
+license = "WTFPL"
+
+[options]
+python_requires = ">=3.9"

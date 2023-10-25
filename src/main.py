@@ -1,5 +1,6 @@
 import argparse
-from YamlConverter import YamlConverter 
+import yaml
+from BomBuilder import BomBuilder 
 
 def main():
 
@@ -8,10 +9,13 @@ def main():
     prsr.add_argument("-o", "--output", type=str, help="Path to outputfile")
 
     args = prsr.parse_args()
-    print(f"{args.file}")
 
-    yamlConverter = YamlConverter()
-    yamlConverter.convert(path=args.file, output=args.output)
+    with open(args.file, 'r') as file:
+        data = yaml.safe_load(file)
+        
+    bom_builder = BomBuilder(yaml=data)
+    bom_builder.build_from_yaml()
+    bom_builder.save_to_file(output=args.output)
     
 if __name__ == "__main__":
     main()
